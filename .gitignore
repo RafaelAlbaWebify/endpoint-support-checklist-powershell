@@ -1,0 +1,13 @@
+# Local generated files
+*.csv
+*.json
+*.txt
+
+# PowerShell / editor
+*.log
+.vscode/
+.idea/
+
+# OS files
+Thumbs.db
+.DS_Store
