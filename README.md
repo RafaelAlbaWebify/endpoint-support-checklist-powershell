@@ -1,3 +1,7 @@
+## Context
+
+This project is part of my "Rafael Alba IT Lab", where I build practical tools and environments to improve real-world IT troubleshooting and infrastructure skills.
+
 # Endpoint Support Checklist (PowerShell / WinForms)
 
 A lightweight PowerShell WinForms utility for endpoint support workflows.
