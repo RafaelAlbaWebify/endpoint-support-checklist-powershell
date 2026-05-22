@@ -1,87 +1,80 @@
-## Context
-
-This project is part of my "Rafael Alba IT Lab", where I build practical tools and environments to improve real-world IT troubleshooting and infrastructure skills.
-
-# Endpoint Support Checklist (PowerShell / WinForms)
+# Endpoint Support Checklist
 
 A lightweight PowerShell WinForms utility for endpoint support workflows.
 
-This tool inspects device status, records technical interventions, and maintains a local intervention history.
+This tool inspects device status, records technical interventions and maintains a local intervention history so common endpoint checks become more consistent and repeatable.
 
-## Real-world usage
+## Problem It Solves
 
-In endpoint support, many issues require quick validation of system state before deeper troubleshooting.
+Endpoint support often starts with the same questions:
 
-This tool helps standardize checks such as:
-- BIOS and firmware state
-- Secure Boot and TPM availability
-- BitLocker configuration
-- Device baseline information
+- Is TPM available and ready?
+- Is Secure Boot enabled?
+- Is BitLocker active?
+- What BIOS version is installed?
+- What was already checked or changed on this device?
 
-This avoids:
-- inconsistent manual checks
-- missing critical information during incidents
-- repeated diagnostic steps
+When these checks are done manually, important details can be missed or recorded inconsistently. This tool creates a small structured workflow around those checks.
 
-## Troubleshooting mindset
+## Checks Included
 
-The goal is not just to collect information, but to:
+- Device status inspection
+- BIOS version and BIOS date
+- Secure Boot status
+- TPM state detection
+- BitLocker status
+- Local intervention registration
+- Local history log in CSV format
+- JSON/TXT status export
 
-- quickly identify abnormal states
-- compare against expected configurations
-- document interventions consistently
-
-In real environments, lack of structured checks often leads to:
-- longer resolution times
-- incomplete diagnostics
-- repeated incidents
-
-## Example scenario
+## Example Scenario
 
 A device fails to comply with security policies.
 
 Initial symptoms:
-- BitLocker not enforced
-- TPM appears unavailable
 
-Using this tool:
-- TPM state is verified
-- Secure Boot status is confirmed
-- BIOS version is checked for compatibility issues
+- BitLocker is not enforced.
+- TPM appears unavailable.
+- The user needs a fast answer before escalation.
 
-This allows faster identification of whether the issue is:
-- configuration-related
-- firmware-related
-- or policy-related
+Using this tool, the support technician can verify TPM state, Secure Boot status and BIOS version, then record the intervention in the local history. That makes it easier to decide whether the issue is configuration-related, firmware-related or policy-related.
 
-## Features
-
-- Device status inspection
-- BIOS version and BIOS date
-- Secure Boot check
-- TPM state detection
-- BitLocker status
-- Local intervention registration
-- Local history log (CSV)
-- JSON/TXT status export
-
-## Why I built it
-
-This project was created as a small internal-style support utility to standardize device checks and technical intervention logging.
-
-The focus was on creating a simple, readable, and maintainable tool usable in real support workflows.
-
-## Tech
+## Tech Stack
 
 - PowerShell
 - WinForms
 - CIM / WMI
-- BitLocker / TPM / Secure Boot queries
-- JSON / CSV persistence
+- BitLocker, TPM and Secure Boot queries
+- JSON, CSV and TXT persistence
 
-## How to run
+## How To Run
 
 Open PowerShell and run:
 
 ```powershell
 powershell.exe -ExecutionPolicy Bypass -File .\EndpointSupportChecklist.ps1
+```
+
+## Suggested Workflow
+
+1. Launch the tool on the endpoint.
+2. Review TPM, Secure Boot, BitLocker and BIOS information.
+3. Export the status if evidence is needed for escalation.
+4. Register the intervention with clear notes.
+5. Attach the output to the ticket or support handover.
+
+## Sample Output
+
+See [examples/sample-output.md](examples/sample-output.md) for an example of how the exported status and intervention notes can be interpreted.
+
+## Portfolio Value
+
+This project demonstrates practical PowerShell GUI work, Windows endpoint support checks, evidence collection, local logging and support documentation habits.
+
+## License
+
+MIT
+
+## Author
+
+Rafael Alba
