@@ -1,0 +1,6 @@
+{
+  "ComputerName": "LAB-W11-01",
+  "SecureBoot": "Enabled",
+  "TPMState": "PresentAndReady",
+  "BitLocker": "On | FullyEncrypted | XtsAes256"
+}
