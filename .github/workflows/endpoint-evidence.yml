@@ -1,0 +1,33 @@
+name: Endpoint evidence reconciliation
+
+on:
+  push:
+    paths:
+      - "Compare-EndpointManagementEvidence.ps1"
+      - "examples/management-evidence/**"
+      - ".github/workflows/endpoint-evidence.yml"
+  pull_request:
+    paths:
+      - "Compare-EndpointManagementEvidence.ps1"
+      - "examples/management-evidence/**"
+
+jobs:
+  verify:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run reconciliation
+        shell: pwsh
+        run: |
+          ./Compare-EndpointManagementEvidence.ps1 `
+            -LocalStatusPath examples/management-evidence/local-device-status.sample.json `
+            -ManagementExportPath examples/management-evidence/intune-device-export.sample.json `
+            -OutputPath artifacts/reconciliation.json
+          $result = Get-Content artifacts/reconciliation.json -Raw | ConvertFrom-Json
+          if (-not $result.matched) { throw "Expected device match" }
+          if (($result.differences | Where-Object field -eq 'BitLocker').Count -ne 1) {
+            throw "Expected BitLocker discrepancy"
+          }
+          if (($result.matches | Where-Object field -eq 'SecureBoot').Count -ne 1) {
+            throw "Expected SecureBoot match"
+          }
