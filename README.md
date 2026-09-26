@@ -29,6 +29,25 @@ run endpoint check
   -> attach the result to a ticket or support handover
 ```
 
+## Endpoint-management evidence reconciliation
+
+The repository also includes a read-only comparison workflow that reconciles the local endpoint snapshot with a public-safe Intune-style export.
+
+```powershell
+./Compare-EndpointManagementEvidence.ps1 \
+  -LocalStatusPath examples/management-evidence/local-device-status.sample.json \
+  -ManagementExportPath examples/management-evidence/intune-device-export.sample.json \
+  -OutputPath artifacts/reconciliation.json
+```
+
+The output separates:
+- matching local/management evidence;
+- contradictory Secure Boot or BitLocker state;
+- management-only compliance/sync evidence;
+- missing evidence and safe next checks.
+
+It does not connect to Intune, change policy or remediate the device.
+
 ## Checks and outputs
 
 - Device status inspection
@@ -68,6 +87,7 @@ See [`examples/sample-output.md`](examples/sample-output.md) for a public-safe e
 - Results depend on hardware, firmware, Windows edition, policy state and permissions.
 - TPM, Secure Boot and BitLocker findings must be interpreted against the device model and organization policy.
 - The tool improves consistency and evidence quality; it does not replace Intune, Group Policy, endpoint security tools or change control.
+- Management-plane exports may be stale; local/Intune discrepancies require timestamp and policy-context review before conclusions.
 
 ## Safety boundary
 
@@ -81,7 +101,7 @@ The utility does not:
 
 ## Portfolio value
 
-This project demonstrates practical PowerShell GUI work, Windows endpoint support, evidence collection, local logging and structured handover documentation.
+This project demonstrates practical PowerShell GUI work, Windows endpoint support, evidence collection, local logging, endpoint-management evidence reconciliation and structured handover documentation.
 
 ## License
 
